@@ -11,11 +11,13 @@ import com.demo.kmp.domain.repository.UserRepository
  *
  * @param repository Nguồn dữ liệu remote, inject qua Koin.
  */
-class GetUsersUseCase(private val repository: UserRepository) {
+class GetUsersUseCase(private val repository: UserRepository) : UseCase<Result<List<GitHubUser>>, UseCase.None>() {
     /**
      * Thực thi use case.
      *
      * @return [Result] chứa `List<GitHubUser>` hoặc error.
      */
-    suspend operator fun invoke(): Result<List<GitHubUser>> = repository.getUsers()
+    override suspend fun run(params: None): Result<List<GitHubUser>> {
+        return repository.getUsers()
+    }
 }
