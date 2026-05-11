@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.demo.kmp.platform.UserLocalDataSource
 import com.demo.kmp.domain.model.GitHubUser
 import com.demo.kmp.domain.usecase.GetUsersUseCase
+import com.demo.kmp.domain.usecase.UseCase
 import com.demo.kmp.presentation.BaseViewModel
 import com.demo.kmp.presentation.ViewModelState
 import kotlinx.coroutines.channels.Channel
@@ -101,7 +102,7 @@ class UserListViewModel(
      */
     private fun loadUsers() {
         executeNetworkTask(action = {
-            getUsersUseCase()
+            getUsersUseCase.invoke(UseCase.None())
         }) { data ->
             _state.update { current ->
                 current.copy(
